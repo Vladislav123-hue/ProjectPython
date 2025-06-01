@@ -37,10 +37,32 @@ for row in range(2, 11):
         format_cell_range(wks, cell_address, green_fill)
 
     wks.update_cell(row, 9, mean)
-    max_Class = max(classes, key=lambda obj: obj.grade)
-    wks.update_cell(row, 10, max_Class.name)
-    min_Class = min(classes, key=lambda obj: obj.grade)
-    wks.update_cell(row, 11, min_Class.name)
+
+    max_grade = max(obj.grade for obj in classes)
+
+    max_classes = [obj for obj in classes if obj.grade == max_grade]
+    top_classes = [obj.name for obj in max_classes]
+
+    top_classes_str = ', '.join(top_classes)
+
+
+    wks.update_cell(row, 10, top_classes_str)
+
+
+
+
+
+    min_grade = min(obj.grade for obj in classes)
+
+    min_classes = [obj for obj in classes if obj.grade == min_grade]
+    worst_classes = [obj.name for obj in min_classes]
+
+    worst_classes_str = ', '.join(worst_classes)
+
+
+    wks.update_cell(row, 11, worst_classes_str)
+
+
     grades.clear()
     classes.clear()
 
